@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/base/LoginForm';
+import { RootState } from '../../state/store';
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const userName = useSelector((state: RootState) => state.user.userName);
+
+  useEffect(() => {
+    if (userName) {
+      navigate('/home');
+    }
+  }, [userName, navigate]);
+
   return (
     <section className="bg-[#a18aff]">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
