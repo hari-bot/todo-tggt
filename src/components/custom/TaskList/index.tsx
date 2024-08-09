@@ -1,21 +1,19 @@
 import React from 'react';
 import TaskItem from '../TaskItem';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../state/store';
+import { toggleTaskCompleted, deleteTask } from '../../../state/tasks/taskSlice';
 
 function TaskList() {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
-
-  const handleEdit = (id: string) => {
-    console.log(`Edit task with id: ${id}`);
-  };
+  const dispatch = useDispatch();
 
   const handleDelete = (id: string) => {
-    console.log(`Delete task with id: ${id}`);
+    dispatch(deleteTask(id));
   };
 
   const handleCheck = (id: string) => {
-    console.log(`Toggle checkbox for task with id: ${id}`);
+    dispatch(toggleTaskCompleted(id));
   };
 
   function getIndicatorType(taskDate: string): 'expired' | 'today' | 'upcoming' {
@@ -41,7 +39,6 @@ function TaskList() {
             title={task.title}
             date={task.date}
             isChecked={task.completed}
-            onEdit={() => handleEdit(task.id)}
             onDelete={() => handleDelete(task.id)}
             onCheck={() => handleCheck(task.id)}
           />

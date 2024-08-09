@@ -15,10 +15,7 @@ function LoginForm() {
     e.preventDefault();
     console.log('Signin button clicked');
 
-    if (isSignin) {
-      dispatch(login(username));
-    }
-
+    dispatch(login(username));
     navigate('/home');
   };
 

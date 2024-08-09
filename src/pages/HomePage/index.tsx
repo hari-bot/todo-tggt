@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import SideBar from '../../components/shared/SideBar';
 import AddTask from '../../components/custom/AddTask';
-import TaskList from '../../components/custom/TakList';
+import TaskList from '../../components/custom/TaskList';
 import { RootState } from '../../state/store';
 import { Task } from '../../state/tasks/taskSlice';
 
