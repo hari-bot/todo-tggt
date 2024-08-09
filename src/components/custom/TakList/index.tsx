@@ -1,57 +1,35 @@
 import React from 'react';
 import TaskItem from '../TaskItem';
-
-interface Task {
-  id: number;
-  indicatorType: 'upcoming' | 'today' | 'expired';
-  title: string;
-  date: string;
-  isChecked: boolean;
-}
-
-const tasks: Task[] = [
-  {
-    id: 1,
-    indicatorType: 'today',
-    title: 'Design Team Meeting',
-    date: '02-08-2024',
-    isChecked: false,
-  },
-  {
-    id: 2,
-    indicatorType: 'upcoming',
-    title: 'Work Out',
-    date: '02-08-2024',
-    isChecked: false,
-  },
-  {
-    id: 3,
-    indicatorType: 'today',
-    title: 'Hand off Project',
-    date: '02-08-2024',
-    isChecked: true,
-  },
-  {
-    id: 4,
-    indicatorType: 'expired',
-    title: 'Read 5 pages of "sprint"',
-    date: '15-08-2024',
-    isChecked: false,
-  },
-];
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../state/store';
 
 function TaskList() {
-  const handleEdit = (id: number) => {
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+
+  const handleEdit = (id: string) => {
     console.log(`Edit task with id: ${id}`);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     console.log(`Delete task with id: ${id}`);
   };
 
-  const handleCheck = (id: number) => {
+  const handleCheck = (id: string) => {
     console.log(`Toggle checkbox for task with id: ${id}`);
   };
+
+  function getIndicatorType(taskDate: string): 'expired' | 'today' | 'upcoming' {
+    const today = new Date();
+    const taskDateObj = new Date(taskDate);
+
+    if (taskDateObj.toDateString() === today.toDateString()) {
+      return 'today';
+    } else if (taskDateObj < today) {
+      return 'expired';
+    } else {
+      return 'upcoming';
+    }
+  }
 
   return (
     <div className="mt-14 p-3 overflow-y-auto h-full">
@@ -59,10 +37,10 @@ function TaskList() {
         {tasks.map((task) => (
           <TaskItem
             key={task.id}
-            indicatorType={task.indicatorType}
+            indicatorType={getIndicatorType(task.date)}
             title={task.title}
             date={task.date}
-            isChecked={task.isChecked}
+            isChecked={task.completed}
             onEdit={() => handleEdit(task.id)}
             onDelete={() => handleDelete(task.id)}
             onCheck={() => handleCheck(task.id)}
