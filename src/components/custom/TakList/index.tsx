@@ -12,8 +12,8 @@ interface Task {
 const tasks: Task[] = [
   {
     id: 1,
-    indicatorType: 'upcoming',
-    title: 'Work Out',
+    indicatorType: 'today',
+    title: 'Design Team Meeting',
     date: '02-08-2024',
     isChecked: false,
   },

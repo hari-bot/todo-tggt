@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsCalendar4 } from 'react-icons/bs';
 import Indicator from '../../base/Indicator';
+import { IoAddCircleOutline } from 'react-icons/io5';
 
 interface AddTaskProps {
   onClick?: () => void;
@@ -16,6 +17,7 @@ const AddTask: React.FC<AddTaskProps> = ({ onClick }) => {
       </div>
       <input className="flex-grow outline-none" placeholder="What is your next task?" onClick={onClick} />
       <BsCalendar4 className="text-[#CA8BFE] text-xl ml-2" />
+      <IoAddCircleOutline className="text-[#CA8BFE] text-2xl ml-2" />
     </div>
   );
 };

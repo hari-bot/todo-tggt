@@ -10,7 +10,7 @@ function Profile({ name }: ProfileProps) {
     <div className="flex items-center gap-5 border-b-2 border-[#a18aff] pb-10">
       <ProfilePicture name={name} />
       <div>
-        <h2 className="text-2xl font-semibold text-black">to-Do</h2>
+        <h2 className="text-2xl font-semibold text-black">toDo</h2>
         <p className="text-xl font-semibold text-[#a18aff]">{name}</p>
       </div>
     </div>
