@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../state/user/userSlice';
 
 function LoginForm() {
   const [pageType, setPageType] = useState('signin');
+  const [username, setUsername] = useState('');
   const isSignin = pageType === 'signin';
   const isRegister = pageType === 'register';
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Signin button clicked');
+
+    if (isSignin) {
+      dispatch(login(username));
+    }
+
     navigate('/home');
   };
 
@@ -21,26 +30,28 @@ function LoginForm() {
       <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
         {isRegister && (
           <div>
-            <label htmlFor="userName" className="block mb-2 text-sm font-medium text-gray-900">
-              Name
+            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
+              Email
             </label>
             <input
-              type="text"
-              name="userName"
-              id="userName"
+              type="email"
+              name="email"
+              id="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-              placeholder="John Wick"
+              placeholder="name@company.com"
             />
           </div>
         )}
         <div>
-          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
-            Your email
+          <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900">
+            User Name
           </label>
           <input
-            type="email"
-            name="email"
-            id="email"
+            type="text"
+            name="username"
+            id="username"
+            value={username} // Bind the username state
+            onChange={(e) => setUsername(e.target.value)} // Update state on input change
             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
             placeholder="name@company.com"
           />
